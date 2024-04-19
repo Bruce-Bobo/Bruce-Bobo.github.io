@@ -45,7 +45,6 @@ $.ajax({
 
         const ap = new APlayer({
             container: document.getElementById('aplayer'),
-            order: 'list',
             preload: 'auto',
             listMaxHeight: '336px',
             volume: '0.5',
