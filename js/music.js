@@ -13,11 +13,36 @@ let server = "netease"; //netease: 网易云音乐; tencent: QQ音乐; kugou: �
 let type = "playlist"; //song: 单曲; playlist: 歌单; album: 唱片
 let id = "9205408042"; //封面 ID / 单曲 ID / 歌单 ID
 
+// $.ajax({
+//     url: "https://api.wuenci.com/meting/api/?server=" + server + "&type=" + type + "&id=" + id,
+//     type: "GET",
+//     dataType: "JSON",
+//     success: function (data) {
+//         const ap = new APlayer({
+//             container: document.getElementById('aplayer'),
+//             order: 'random',
+//             preload: 'auto',
+//             listMaxHeight: '336px',
+//             volume: '0.5',
+//             mutex: true,
+//             lrcType: 3,
+//             audio: data,
+//         });
 $.ajax({
     url: "https://api.wuenci.com/meting/api/?server=" + server + "&type=" + type + "&id=" + id,
     type: "GET",
     dataType: "JSON",
     success: function (data) {
+        // 将第一首音乐移到数组首位
+        const firstMusic = data[0];
+        data.splice(0, 1);
+
+        // 将剩余音乐随机排序
+        data.sort(() => Math.random() - 0.5);
+
+        // 将第一首音乐插入到随机排序后的数组首位
+        data.unshift(firstMusic);
+
         const ap = new APlayer({
             container: document.getElementById('aplayer'),
             order: 'random',
